@@ -5,7 +5,7 @@ const os = require('os');
 const notes = require('./notes.js');
 const _ = require('lodash');
 
-var fiArray = _.uniq(['Mike', 1, 'Mike', 1, 2, 3, 4]);
+var fiArray = _.uniq(['John', 1, 'John', 1, 2, 3, 4]);
 console.log(fiArray);
 
 // console.log(_.isString(true));
