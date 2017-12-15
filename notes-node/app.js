@@ -21,5 +21,5 @@ if (command === 'add'){
     notes.rmNote(argv.title);
 }
 else {
-    console.log('Unknown');
+    console.log('Unknownn');
 }
