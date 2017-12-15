@@ -8,17 +8,17 @@ const argv = require('yargs').argv;
 
 ///const argv = yargs.argv;
 
-var command = process.argv[2];
+var command = argv._[0];
 console.log('Command: ', command);
 
 if (command === 'add'){
-    console.log('Adding');
+    notes.addNote(argv.title, argv.body);
 } else if (command ==='list'){
-    console.log('Listing');
+    notes.getAll();
 } else if (command ==='read'){
-    console.log('Reading');
+    notes.readNote(argv.title);
 } else if (command ==='remove'){
-    console.log('Removing');
+    notes.rmNote(argv.title);
 }
 else {
     console.log('Unknownn');
