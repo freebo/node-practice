@@ -23,12 +23,12 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {
-        console.log(results.address);
+        console.log(`For address: ${results.address}`);
         weather.getWeather(results.lat,results.lng, (errorMessage, weatherResults) => {
             if (errorMessage) {
                 console.log(errorMessage);
             } else {
-                console.log(`Actual Temp is: ${weatherResults.temperature} Apparent Temp is: ${weatherResults.apparentTemperature}`);
+                console.log(`Its Currently: ${weatherResults.temperature} It Feels Like: ${weatherResults.apparentTemperature}`);
             }
         });
 
