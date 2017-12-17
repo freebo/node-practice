@@ -9,14 +9,14 @@ var geocodeAddress = (address, callback) => {
     json: true
     }, (error, response, body) => {
         if (error) {
-            callback('Can\'t connect');
+            callback('Can\'t connect to Google API');
         } else if (body.status === 'ZERO_RESULTS') {
             callback('Address not found');
         } else if (body.status === 'OK') {
             callback(undefined, {
                 address: body.results[0].formatted_address,
-                lattitude: body.results[0].geometry.location.lat,
-                longitude: body.results[0].geometry.location.lng
+                lat: body.results[0].geometry.location.lat,
+                lng: body.results[0].geometry.location.lng
             });
          }
     });
