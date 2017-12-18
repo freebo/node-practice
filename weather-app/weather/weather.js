@@ -8,7 +8,8 @@ var getWeather = (lat,lng,callback) => {
             if ( !error && response.statusCode === 200) {
                 callback(undefined, {
                 temperature: body.currently.temperature,
-                apparentTemperature: body.currently.apparentTemperature
+                apparentTemperature: body.currently.apparentTemperature,
+                summary: body.currently.summary
                 });
             } else
                 callback('Can\'t connect to Dark Sky API');
