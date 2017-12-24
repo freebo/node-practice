@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
+var config = require ('../config.js');
+
+console.log(config.connect_string);
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://mjfhwork:QF6ib98KP8UCg4MvEdsmdONjYUwPcbChuwEYVaVECcCi00LwUIRfnzA9sItPJ7CHFjijGDespRXcloXXL1fRuA==@mjfhwork.documents.azure.com:10255/TodoApp?ssl=true');
+mongoose.connect(config.connect_string);
 
 module.exports = {mongoose};
- 

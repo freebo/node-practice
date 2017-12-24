@@ -1,6 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var config = require ('./config.js');
+
+
+
 var {mongooose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
