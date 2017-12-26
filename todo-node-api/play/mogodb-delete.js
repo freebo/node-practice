@@ -25,10 +25,26 @@ MongoClient.connect("mongodb://mjfhwork:QF6ib98KP8UCg4MvEdsmdONjYUwPcbChuwEYVaVE
     // }, err => {
     //     console.log('Ubable to fetch', err)
     // });
-
-    db.collection('Todos').deleteMany({text: 'Walk the dog'}).then((result) =>  {
+    db.collection('Users').findOneAndUpdate({
+        _id: new ObjectID('5a3b3807d46b06c92211ee80')
+    }, {
+        $set: {
+            name: 'Rufus Barkalot Freeman'
+        },
+        $inc: {  
+            age: +1 
+        }
+    }, {
+        returnOrigional: false
+    }).then((result) => {
         console.log(result);
-    });
+    })
+
+   
+
+    // db.collection('Todos').deleteMany({text: 'Walk the dog'}).then((result) =>  {
+    //     console.log(result);
+    // });
 
 
 //   db.close();
