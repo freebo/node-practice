@@ -7,6 +7,9 @@ MongoClient.connect("mongodb://mjfhwork:QF6ib98KP8UCg4MvEdsmdONjYUwPcbChuwEYVaVE
         return console.log('Could not open db')
     }
     console.log('Connected to db');
+
+});
+
     
     // db.collection('Todos').find({
     //     _id: new ObjectID('5a3b3eaed59b29101ccd60f8')
