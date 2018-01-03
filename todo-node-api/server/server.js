@@ -1,13 +1,16 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const _ = require('lodash');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-var config = require ('./config.js');
+const config = require ('./config.js');
 
 
 
-var {mongooose} = require('./db/mongoose');
-var {Todo} = require('./models/todo');
-var {User} = require('./models/user');
+const {mongooose} = require('./db/mongoose');
+const {Todo} = require('./models/todo');
+const {User} = require('./models/user');
+
+const {ObjectID} = require('mongodb');
 
 var app = express();
 
@@ -32,6 +35,72 @@ app.get('/todos', (req, res) => {
         res.status(400).send(e);
     })
 });
+
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        // console.log('Invalid ID');
+        return res.status(404).send();
+    }
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
+            console.log('Id not found');
+            return res.status(404).send();
+        }  
+        res.send({todo});
+    }).catch ((e) => {
+        res.status(400).send;
+    });
+});
+
+app.patch('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+    
+    if (!ObjectID.isValid(id)) {
+        // console.log('Invalid ID');
+        return res.status(404).send();
+    }
+
+    if (_.isBoolean(body.completed) && body.completed) {
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+    res.send({todo});
+
+    }).catch((e) => {
+        res.status(400).send();
+    })
+});
+
+app.delete('/todos/:id', (req, res) => {
+    //
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        // console.log('Invalid ID');
+        return res.status(404).send();
+    }
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            console.log('Id not found');
+            return res.status(404).send();
+        }  
+        res.send({todo});
+    }).catch ((e) => {
+        res.status(400).send;
+    });
+});
+
+    //
+
 
 app.listen(3000, () => {
     console.log('Listening on 3000');
