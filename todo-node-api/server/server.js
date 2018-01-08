@@ -14,6 +14,8 @@ const {ObjectID} = require('mongodb');
 
 var app = express();
 
+const port = 3000;
+
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
@@ -66,6 +68,18 @@ app.post('/users', (req, res) => {
     });
 });
 
+app.get('/users/me', (req, res) => {
+    var token = req.header('x-auth');
+
+    User.findByToken(token).then((user) => {
+        if (!user) {
+            console.log('no user', token);
+        }
+        console.log('found user');
+        res.send(user);
+    });
+});
+
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['text', 'completed']);
@@ -91,7 +105,7 @@ app.patch('/todos/:id', (req, res) => {
 
     }).catch((e) => {
         res.status(400).send(e);
-    })
+    });
 });
 
 app.delete('/todos/:id', (req, res) => {
@@ -115,6 +129,6 @@ app.delete('/todos/:id', (req, res) => {
     //
 
 
-app.listen(3000, () => {
-    console.log('Listening on 3000');
+app.listen(port, () => {
+    console.log(`Listening on ${port}`);
 })
